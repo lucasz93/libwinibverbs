@@ -15,7 +15,7 @@ add_library(winibverbs SHARED
 )
 
 target_compile_definitions(winibverbs PRIVATE _CRT_SECURE_NO_WARNINGS)
-target_link_libraries(winibverbs ws2_32.lib ../lib/winverbs)
+target_link_libraries(winibverbs ws2_32.lib ${CMAKE_CURRENT_SOURCE_DIR}/lib/winverbs.lib)
 
 install(TARGETS winibverbs DESTINATION ${CMAKE_INSTALL_PREFIX})
 install(FILES 
