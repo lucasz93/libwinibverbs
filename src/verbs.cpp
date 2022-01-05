@@ -690,6 +690,8 @@ int ibv_modify_qp(struct ibv_qp *qp, struct ibv_qp_attr *attr,
 	WV_QP_ATTRIBUTES wv_attr;
 	HRESULT hr;
 
+	memset(&wv_attr, 0, sizeof(wv_attr));
+
 	wv_attr.SendDepth = attr->cap.max_send_wr;
 	wv_attr.SendSge = attr->cap.max_send_sge;
 	wv_attr.ReceiveDepth = attr->cap.max_recv_wr;

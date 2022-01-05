@@ -14,6 +14,14 @@ add_library(winibverbs SHARED
 	src/verbs.cpp
 )
 
+target_include_directories(winibverbs
+    PUBLIC
+        $<INSTALL_INTERFACE:include>
+        $<BUILD_INTERFACE:${CMAKE_CURRENT_SOURCE_DIR}/../include>
+    PRIVATE
+        ${CMAKE_CURRENT_SOURCE_DIR}
+)
+
 target_compile_definitions(winibverbs PRIVATE _CRT_SECURE_NO_WARNINGS)
 target_link_libraries(winibverbs ws2_32.lib ${CMAKE_CURRENT_SOURCE_DIR}/lib/winverbs.lib)
 
