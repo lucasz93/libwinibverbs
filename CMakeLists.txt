@@ -9,7 +9,6 @@ add_library(winibverbs SHARED
 	src/ibv_main.cpp
 	src/ibverbs.h
 	src/ibverbs.rc
-	src/main.cpp
 	src/oib_ver.h
 	src/verbs.cpp
 )
