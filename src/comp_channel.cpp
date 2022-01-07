@@ -186,6 +186,7 @@ DWORD CompChannelInit(COMP_MANAGER *pMgr, COMP_CHANNEL *pChannel, DWORD Millisec
 	pChannel->Head = NULL;
 	pChannel->TailPtr = &pChannel->Head;
 	pChannel->Milliseconds = Milliseconds;
+	pChannel->Closed = FALSE;
 
 	pChannel->Event = CreateEvent(NULL, TRUE, TRUE, NULL);
 	if (pChannel->Event == NULL) {
@@ -199,6 +200,7 @@ DWORD CompChannelInit(COMP_MANAGER *pMgr, COMP_CHANNEL *pChannel, DWORD Millisec
 
 void CompChannelCleanup(COMP_CHANNEL *pChannel)
 {
+	pChannel->Closed = TRUE;
 	CloseHandle(pChannel->Event);
 	DeleteCriticalSection(&pChannel->Lock);	
 }
@@ -269,6 +271,9 @@ DWORD CompChannelPoll(COMP_CHANNEL *pChannel, COMP_ENTRY **ppEntry)
 		ret = WaitForSingleObject(pChannel->Event, pChannel->Milliseconds);
 		if (ret) {
 			return ret;
+		}
+		if (pChannel->Closed) {
+			return -1;
 		}
 
 		EnterCriticalSection(&pChannel->Lock);

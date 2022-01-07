@@ -60,6 +60,7 @@ typedef struct _COMP_CHANNEL
     HANDLE                    Event;
     CRITICAL_SECTION        Lock;
     DWORD                    Milliseconds;
+    BOOL                     Closed;
 
 }    COMP_CHANNEL;
 
